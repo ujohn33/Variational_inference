@@ -106,8 +106,6 @@ b_0 = 0
 mu_0 = 0
 lambda_0 = 0
 
-# number of iterations to converge parameters
-iterations = 10
 
 # generate mus and taus for conjugate Gaussian, Gamma distributions
 mu = np.linspace(-2,2,100)
