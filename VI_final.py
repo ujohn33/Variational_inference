@@ -36,14 +36,13 @@ def update_parameters(x, lambda_0, mu_0, a_0, b_0, iterations, mu, tau):  # x - 
 	# mu_N and a_N are constants
 	mu_N = (lambda_0*mu_0 + N*x_mean)/(lambda_0 + N)
 	a_N = a_0 + (N+1)/2
-	iterations = 6
-
-	# Initalized values before they get updated
-	b_N = 0.1
-	lambda_N = 0.2
-
     # declare parameters of an exact posterior
 	a_T, b_T, mu_T, lambda_T = trueParameters(x,a_0,b_0,mu_0,lambda_0)
+	# Initalized values before they get updated
+	# INITALIZE b_N AND lambda_N HERE
+	b_N = 0.1
+	lambda_N = 0.1
+
 	# lambda_N and b_N are updated iteratively
 	for i in range(iterations):
 		expected_mu, expected_mu2, expected_tau = expectations(mu_N, lambda_N, a_N, b_N)
@@ -64,7 +63,6 @@ def update_parameters(x, lambda_0, mu_0, a_0, b_0, iterations, mu, tau):  # x - 
 			colour = 'r'
 
 		plotPost(mu, tau, q_posterior, colour, i)
-
 # generate random dataset X
 # m - mean, p - precision
 def generate_data(m, p, N):
@@ -75,10 +73,11 @@ def plotPost(mu, tau, q_posterior, colour, i):
 	muGrid, tauGrid = np.meshgrid(mu, tau)
 	plt.contour(muGrid, tauGrid, q_posterior, colors = colour)
 	plt.title('Posterior approximation after '+str(i)+' iterations')
-	plt.axis([-1.5,1.5,0,4])
+	plt.axis([-1.5,1.5,0,3])
 	plt.xlabel('$\mu$')
 	plt.ylabel('tau')
-	plt.show()
+	plt.savefig('./plots/morepoints_iteration_'+str(i)+'.png')
+	plt.clf()
 
 
 # parameters of of q_mu and q_tau for an exact posterior found analytically
@@ -96,10 +95,10 @@ def trueParameters(x, a_0, b_0, mu_0, lambda_0):
 # Plot the exact posterior
 def plotexact(mu, tau, exact):
 	muGrid, tauGrid = np.meshgrid(mu, tau)
-	plt.contour(muGrid, tauGrid, exact)
+	plt.contour(muGrid, tauGrid, exact, colors = 'g')
 
 # generate random data from Gaussian
-x = generate_data(0, 1, 10)
+x = generate_data(0, 1, 100)
 
 # initialize parameters
 a_0 = 0
@@ -108,7 +107,7 @@ mu_0 = 0
 lambda_0 = 0
 
 # number of iterations to converge parameters
-iterations = 4
+iterations = 10
 
 # generate mus and taus for conjugate Gaussian, Gamma distributions
 mu = np.linspace(-2,2,100)

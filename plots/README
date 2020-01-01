@@ -1,0 +1,39 @@
+no prior:
+N = 10
+a_0 = 0
+b_0 = 0
+mu_0 = 0
+lambda_0 = 0
+
+b_N = 0.1
+lambda_N = 0.1
+
+some prior:
+N = 10
+a_0 = 3
+b_0 = 6
+mu_0 = 0.2
+lambda_0 = 5
+
+b_N = 6
+lambda_N = 5
+
+accurate prior:
+N = 10
+a_0 = 0
+b_0 = 0
+mu_0 = 0
+lambda_0 = 0
+
+b_N = b_T
+lambda_N = lambda_T
+
+more points:
+N = 100
+a_0 = 0
+b_0 = 0
+mu_0 = 0
+lambda_0 = 0
+
+b_N = 0.1
+lambda_N = 0.1
